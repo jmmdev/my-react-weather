@@ -120,8 +120,9 @@ export default function Home() {
   }
 
   const getCityData = () => {
-    if (text.length > 0){ 
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${text}&units=metric&appid=${key}`).then(
+    const cleanText = text.trim()
+    if (cleanText.length > 0){ 
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cleanText}&units=metric&appid=${key}`).then(
         response => {
           if (response.status !== 200) {
             setNotFound(true)

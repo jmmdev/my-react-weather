@@ -1,7 +1,7 @@
 .main {
   width: 100vw;
   min-height: 100vh;
-  padding: 16px;
+  padding: 32px;
   background-color: #308;
   display: grid;
   grid-template-rows: 0fr 1fr;
@@ -189,15 +189,28 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 512px) {
   .main {
     display: flex;
     flex-direction: column;
+    padding: 16px;
     gap: 15vh;
   }
 
+  .location {
+    font-size: max(5.5vw, 18px);
+  }
+
+  .name {
+    font-size: max(5.5vw, 18px);
+  }
+
+  .help {
+    font-size: max(5.5vw, 18px);
+  }
+
   .city-data {
-    padding: 16px 8px;
+    padding: 16px;
   }
 
   .blocks {

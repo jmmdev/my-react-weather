@@ -10,20 +10,15 @@ export default function CityInfo({city}) {
         switch(city.weather[0].main) {
           case('Clear'):
             return <IoSunny style={{color: '#fc0'}}/>
-            break;
           case('Clouds'):
             return <IoCloudy style={{color: '#bbb'}} />
-            break;
           case('Drizzle'):
           case('Rain'):
             return <IoRainy style={{color: '#ddd'}}/>
-            break;
           case('Thunderstorm'):
             return <IoThunderstorm style={{color: '#7ff'}}/>
-            break;
           case('Snow'):
             return <IoSnow style={{color: '#fff'}} />
-            break;
           default:
             return <IoReorderThree style={{color: '#fffa'}} />
         }

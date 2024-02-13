@@ -2,12 +2,13 @@
   width: 100vw;
   min-height: 100vh;
   padding: 32px;
-  background-color: #308;
-  display: grid;
-  grid-template-rows: 0fr 1fr;
+  background-color: #204;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
+  padding-bottom: 96px;
   text-align: right;
 }
 
@@ -24,7 +25,7 @@
 
 .search {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   display: flex;
   border-bottom: 1px solid #fff;
 }
@@ -57,7 +58,15 @@
   opacity: 1;
 }
 
-.city-data {
+.placeholder {
+  width: 100%;
+  font-size: min(8vw, 48px);
+  text-align: center;
+  padding: 20vw 16px;
+  font-weight: 500;
+}
+
+.now-data {
   width: max-content;
   display: flex;
   flex-direction: column;
@@ -175,6 +184,63 @@
   opacity: 0.8;
 }
 
+.forecast {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.forecast > div {
+  background-color: #0003;
+  border: 2px solid #fff8;
+  margin-bottom: 32px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.forecast-header {
+  width: 100%;
+  font-size: 24px;
+  margin-top: 32px;
+  padding: 12px 0;
+  font-weight: 300;
+  border-bottom: 1px solid #fff;
+}
+
+.weekday {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.period-data-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.period-hour {
+  color: #fffa;
+  font-size: min(20px, 3.5vw);
+  font-weight: 500;
+}
+
+.period-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 4px;
+}
+
+.period-temp {
+  display: flex;
+  font-size: min(22px, 4vw);
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+}
+
 @keyframes pulse {
   0% {
     color: #fff;
@@ -209,12 +275,20 @@
     font-size: max(5.5vw, 18px);
   }
 
-  .city-data {
+  .now-data {
     padding: 16px;
   }
 
   .blocks {
     flex-direction: column;
     gap: 16px;
+  }
+
+  .period-hour {
+    font-size: min(20px, 4vw);
+  }
+
+  .period-temp {
+    font-size: min(22px, 4.5vw);
   }
 }

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styles from "../page.module.css"
-import {IoSunny, IoCloudy, IoRainy, IoThunderstorm, IoSnow, IoReorderThree, IoWater, IoLocationSharp, IoSearch, IoHelpCircleOutline} from 'react-icons/io5';
+import {IoSunny, IoCloudy, IoRainy, IoThunderstorm, IoSnow, IoReorderThree, IoWater, IoLocationSharp, IoHelpCircleOutline} from 'react-icons/io5';
 import {FaWind} from 'react-icons/fa';
 
-export default function CityInfo({city}) {
+export default function InfoNow({data}) {
     const [showTooltip, setShowTooltip] = useState(false)
 
     const WeatherIcon = () => {
-        switch(city.weather[0].main) {
+        switch(data.weather[0].main) {
           case('Clear'):
             return <IoSunny style={{color: '#fc0'}}/>
           case('Clouds'):
@@ -40,7 +40,7 @@ export default function CityInfo({city}) {
       }
     
       const getWeatherBg = () => {
-        switch(city.weather[0].main) {
+        switch(data.weather[0].main) {
           case('Clear'):
           return '#08e'
         case('Clouds'):
@@ -58,7 +58,7 @@ export default function CityInfo({city}) {
       }
     
       const getWindDirection = () => {
-        const deg = city.wind.deg
+        const deg = data.wind.deg
     
         if (deg >= 0 && deg <= 22.5 || deg > 337.5 && deg <= 360)
           return 'N'
@@ -88,40 +88,40 @@ export default function CityInfo({city}) {
         return firstChar + text.slice(1)
       }
 
-    if (city)
+    if (data)
         return (
-        <div className={styles['city-data']} style={{backgroundColor: getWeatherBg()}}>
+        <div className={styles['now-data']} style={{backgroundColor: getWeatherBg()}}>
             <div className={styles.head}>
             <div className={styles.location}>
                 <IoLocationSharp />
-                <p className={styles.name}>{city.name}, {city.sys.country}</p>
+                <p className={styles.name}>{data.name}, {data.sys.country}</p>
                 <div className={styles.help} onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}>
                 <IoHelpCircleOutline />
                 </div>
                 <Tooltip />
             </div>
-            <p className={styles.updated}>{msToDate(city.dt, city.timezone).toDateString()}</p>
+            <p className={styles.updated}>{msToDate(data.dt, data.timezone).toDateString()}</p>
             </div>
             <div className={styles.blocks}>
             <div className={styles['left-block']}>
                 <div className={styles.temp}>
                 <WeatherIcon />
-                <p>{`${Math.round(city.main.temp)}°`}</p>
+                <p>{`${Math.round(data.main.temp)}°`}</p>
                 </div>
-                <p className={styles.description}>{formatDescription(city.weather[0].description)}</p>
+                <p className={styles.description}>{formatDescription(data.weather[0].description)}</p>
             </div>
             <div className={styles['right-block']}>
                 <div className={styles['extra-data']}>
                 <div className={styles['extra-data-upper']}>
                     <IoWater />
-                    <p>{`${Math.round(city.main.humidity)}%`}</p>
+                    <p>{`${Math.round(data.main.humidity)}%`}</p>
                 </div>
                 <p className={styles['extra-data-lower']}>Humidity</p>
                 </div>
                 <div className={styles['extra-data']}>
                 <div className={styles['extra-data-upper']}>
-                    <FaWind style={{transform: `rotate(${city.wind.deg+90}deg)`}} />
-                    <p>{`${Math.round(city.wind.speed)} Km/h, ${getWindDirection()}`}</p>
+                    <FaWind style={{transform: `rotate(${data.wind.deg+90}deg)`}} />
+                    <p>{`${Math.round(data.wind.speed)} Km/h, ${getWindDirection()}`}</p>
                 </div>
                 <p className={styles['extra-data-lower']}>Wind speed</p>
                 </div>

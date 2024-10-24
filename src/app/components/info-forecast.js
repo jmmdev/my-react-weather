@@ -1,60 +1,65 @@
-import styles from "../page.module.css"
-import SingleForecastDayInfo from "./single-forecast-day-info";
+import { useState } from "react";
+import { GetTemp, GetHour, GetWeatherIcon } from "/public/functions";
 
-export default function InfoForecast({data}) {
+export default function InfoForecast({days}) {
 
-    const getForecastDays = () => {
-        const days = []
-        let chunk = []
-        let ref_date = null
+    const [activeDay, setActiveDay] = useState(0);
+    
+    const GetPeriodInfo = () => {
+        const data = [];
 
-        for (const entry of data.list) {
-            if (ref_date === null) {
-                ref_date = new Date(0)
-                ref_date.setUTCSeconds(entry.dt)
-            }
-
-            if (!chunk.length > 0) {
-                chunk.push(entry)
-            } 
-            else {
-                const compare_date = new Date(0)
-                compare_date.setUTCSeconds(entry.dt)
-
-                if (ref_date.getDate() !== compare_date.getDate()) {
-                    days.push(chunk)
-                    chunk = []
-                }
-                
-                chunk.push(entry)
-            }
-
-            ref_date = new Date(0)
-                ref_date.setUTCSeconds(entry.dt)
-        }
-        
-        return days
-    }
-
-    const ForecastDaysInfo = () => {
-        const resultInfo = []
-        const days = getForecastDays()
-
-        for (let day of days) {
-            resultInfo.push(<SingleForecastDayInfo key={day[0].dt_txt} day={day} />)
-        }
-
-        return resultInfo
-    }
-
-    if (data)
-        return (
-            <>
-                <p className={styles['forecast-header']}>Forecast for the next days</p>
-                <div className={styles.forecast}>
-                    <ForecastDaysInfo />
+        for (let period of days[activeDay]) {
+            data.push(
+                <div key={period.dt} className="bg-indigo-200 gap-2 px-5 py-2 rounded-lg flex flex-col items-center font-bold text-lg">
+                    <div className="text-indigo-900/75"><GetHour seconds={period.dt} /></div>
+                    <div className="text-3xl"><GetWeatherIcon main={period.weather[0].main} /></div>
+                    <GetTemp period={period} />
                 </div>
-            </>
+            )
+        }
+        return <div className="flex bg-indigo-100 gap-2 p-4 overflow-x-auto rounded-b-lg">{data}</div>;
+    }
+
+    const ForecastDaysTabs = () => {
+        const resultInfo = []
+
+        for (let [index, day] of days.entries()) {
+            resultInfo.push(
+                <div key={index}>
+                    <button className={`${activeDay === index ? "bg-indigo-100 text-indigo-800/85" : "bg-indigo-200 text-indigo-900/85 hover:bg-indigo-300 active:bg-indigo-400"} uppercase sm:text-lg px-2 py-1 rounded-t-lg font-bold`}
+                    onClick={() => setActiveDay(index)}>{getDate(day)}</button>
+                </div>
+            )
+        }
+
+        return (
+            <div className="flex justify-between">
+                <div className="flex">
+                    {resultInfo}
+                </div>
+                <div className={"bg-indigo-100 px-4 py-1 rounded-t-lg hidden sm:block"}>
+                    <h1 className="uppercase text-lg font-bold text-indigo-800/85">this week</h1>
+                </div>
+            </div>
+        );
+    }
+
+    const getDate = (day) => {
+        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        const date = new Date(0)
+        date.setUTCSeconds(day[0].dt)
+
+        return <p className="">{dayNames[date.getDay()].substring(0,3)} <span className="hidden sm:inline-block">{date.getDate()}</span></p> 
+    }
+
+        return (
+            <div>
+                {days &&
+                <div>
+                    <ForecastDaysTabs />
+                    <GetPeriodInfo />
+                </div>
+                }
+            </div>
         )
-  return null 
 }

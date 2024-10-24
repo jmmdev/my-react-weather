@@ -1,9 +1,9 @@
-import {Roboto} from "next/font/google"
+import {Lexend_Deca} from "next/font/google"
 import "./globals.css";
 
-const roboto = Roboto({
-  weight: ['100', '300', '400', '500', '700', '900'],
+const myFont = Lexend_Deca({
   subsets: ['latin'],
+  variable: '--my-font'
 })
 
 export const metadata = {
@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={`${myFont.variable} font-sans bg-indigo-400 antialiasing`}>{children}</body>
     </html>
   );
 }

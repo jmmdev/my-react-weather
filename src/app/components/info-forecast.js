@@ -17,7 +17,7 @@ export default function InfoForecast({days}) {
                 </div>
             )
         }
-        return <div className="flex bg-indigo-100 gap-2 p-4 overflow-x-auto rounded-b-lg">{data}</div>;
+        return <div className="flex bg-indigo-100 gap-2 p-4 overflow-x-auto rounded-lg rounded-tl-none">{data}</div>;
     }
 
     const ForecastDaysTabs = () => {
@@ -33,13 +33,8 @@ export default function InfoForecast({days}) {
         }
 
         return (
-            <div className="flex justify-between">
-                <div className="flex">
-                    {resultInfo}
-                </div>
-                <div className={"bg-indigo-100 px-4 py-1 rounded-t-lg hidden sm:block"}>
-                    <h1 className="uppercase text-lg font-bold text-indigo-800/85">this week</h1>
-                </div>
+            <div className="flex">
+                {resultInfo}
             </div>
         );
     }
